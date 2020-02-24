@@ -1,0 +1,41 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="mail-handler-default"/>
+
+    <!-- add our web resources -->
+    <web-resource key="mail-handler-default-resources" name="mail-handler-default Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+
+        <resource type="download" name="mail-handler-default.css" location="/css/mail-handler-default.css"/>
+        <resource type="download" name="mail-handler-default.js" location="/js/mail-handler-default.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>mail-handler-default</context>
+    </web-resource>
+
+    <message-handler i18n-name-key="handler.name"
+                     key="handler"
+                     class="rocks.patch.plugins.jira.mailhandlerdefault.Handler"
+                     add-edit-url="/secure/admin/EditHandlerDetails!default.jspa" weight="0"/>
+
+    <webwork1 key="actions" name="Actions" class="java.lang.Object">
+        <actions>
+            <action name="rocks.patch.plugins.jira.mailhandlerdefault.EditHandlerDetailsWebAction"
+                    alias="EditHandlerDetails"
+                    roles-required="admin">
+                <view name="input">/view/editHandlerDetails.vm</view>
+                <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+            </action>
+        </actions>
+    </webwork1>
+
+</atlassian-plugin>

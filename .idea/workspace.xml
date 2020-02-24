@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2a9d8664-bdaf-4a67-ba4b-6927545734a1" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:/Program Files/Atlassian/atlassian-plugin-sdk-8.0.16/apache-maven-3.5.4" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1YClWL1XKDAUuFzscNIfYR3ppUT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/view" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\development\intellij\mail-handler-default\src\main\resources\view" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2a9d8664-bdaf-4a67-ba4b-6927545734a1" name="Default Changelist" comment="" />
+      <created>1582454488314</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582454488314</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="648" y="304" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582466264369">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="648" y="304" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582466264369" />
+    <state x="721" y="161" key="#com.intellij.ide.util.MemberChooser" timestamp="1582457632227">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="721" y="161" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582457632227" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1582454892044">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582454892044" />
+    <state x="461" y="150" key="SettingsEditor" timestamp="1582468284911">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="150" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582468284911" />
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1582486394377">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582486394377" />
+    <state x="623" y="225" width="840" height="678" key="search.everywhere.popup" timestamp="1582457413643">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="840" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582457413643" />
+  </component>
+</project>
