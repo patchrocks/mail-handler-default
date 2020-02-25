@@ -1,6 +1,7 @@
 package rocks.patch.plugins.jira.mailhandlerdefault;
 
 import com.atlassian.jira.issue.Issue;
+import com.atlassian.jira.issue.IssueManager;
 import com.atlassian.jira.service.util.handler.MessageHandler;
 import com.atlassian.jira.service.util.handler.MessageHandlerContext;
 import com.atlassian.jira.service.util.handler.MessageHandlerErrorCollector;
@@ -22,9 +23,9 @@ public class Handler implements MessageHandler {
     public static final String KEY_ISSUE_KEY = "issueKey";
 
     // we can use dependency injection here too!
-    public Handler(@ComponentImport MessageUserProcessor messageUserProcessor, IssueKeyValidator issueKeyValidator) {
+    public Handler(@ComponentImport MessageUserProcessor messageUserProcessor, @ComponentImport IssueManager issuesManager) {
         this.messageUserProcessor = messageUserProcessor;
-        this.issueKeyValidator = issueKeyValidator;
+        this.issueKeyValidator = new IssueKeyValidator(issuesManager);
     }
 
     @Override

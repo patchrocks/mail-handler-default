@@ -1,6 +1,7 @@
 package rocks.patch.plugins.jira.mailhandlerdefault;
 
 import com.atlassian.configurable.ObjectConfigurationException;
+import com.atlassian.jira.issue.IssueManager;
 import com.atlassian.jira.plugins.mail.webwork.AbstractEditHandlerDetailsWebAction;
 import com.atlassian.jira.service.JiraServiceContainer;
 import com.atlassian.jira.service.services.file.AbstractMessageHandlingService;
@@ -15,9 +16,9 @@ public class EditHandlerDetailsWebAction extends AbstractEditHandlerDetailsWebAc
 
     private final IssueKeyValidator issueKeyValidator;
 
-    public EditHandlerDetailsWebAction(@ComponentImport PluginAccessor pluginAccessor, IssueKeyValidator issueKeyValidator) {
+    public EditHandlerDetailsWebAction(@ComponentImport PluginAccessor pluginAccessor, @ComponentImport IssueManager issueManager) {
         super(pluginAccessor);
-        this.issueKeyValidator = issueKeyValidator;
+        this.issueKeyValidator = new IssueKeyValidator(issueManager);
     }
 
     private String issueKey;
