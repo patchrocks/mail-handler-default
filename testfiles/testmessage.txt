@@ -4,7 +4,7 @@ Date: Mon, 22 Jul 2013 13:09:38 -0700
 Delivered-To: admin@admin.com
 Message-ID: <CAKOugVWfh27gSCxgUqJE9QTgOJUJiabS27jw@mail.gmail.com>
 Subject: Test Message Subject
-From: Admin <admin@admin.com>
+From: Chris <chris@chris.com>
 To: Admin <admin@admin.com>
 Content-Type: multipart/alternative; boundary=485b397dd4ab88758a04e21f414f
 
@@ -12,10 +12,12 @@ Content-Type: multipart/alternative; boundary=485b397dd4ab88758a04e21f414f
 Content-Type: text/plain; charset=ISO-8859-1
 
 Test message body.
+Super Test
 
 --485b397dd4ab88758a04e21f414f
 Content-Type: text/html; charset=ISO-8859-1
 
 Test message body.<br>
+<b>Super</b> Test
 
 --485b397dd4ab88758a04e21f414f--

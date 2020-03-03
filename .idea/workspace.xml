@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a9d8664-bdaf-4a67-ba4b-6927545734a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testfiles/testmessage.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rocks/patch/plugins/jira/mailhandlerdefault/EditHandlerDetailsWebAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rocks/patch/plugins/jira/mailhandlerdefault/EditHandlerDetailsWebAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/rocks/patch/plugins/jira/mailhandlerdefault/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rocks/patch/plugins/jira/mailhandlerdefault/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rocks/patch/plugins/jira/mailhandlerdefault/IssueKeyValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rocks/patch/plugins/jira/mailhandlerdefault/IssueKeyValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testfiles/testmessage.txt" beforeDir="false" afterPath="$PROJECT_DIR$/testfiles/testmessage.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +42,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/view" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -87,6 +85,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582486394377" />
+    <state x="627" y="216" key="extract.method.dialog" timestamp="1583062206560">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="627" y="216" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583062206560" />
+    <state x="532" y="237" key="run.anything.popup" timestamp="1583055489529">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="532" y="237" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583055489529" />
     <state x="623" y="225" width="840" height="678" key="search.everywhere.popup" timestamp="1582457413643">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
