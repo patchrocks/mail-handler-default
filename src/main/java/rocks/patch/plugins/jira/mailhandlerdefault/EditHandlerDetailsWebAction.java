@@ -14,43 +14,73 @@ import java.util.Map;
 
 public class EditHandlerDetailsWebAction extends AbstractEditHandlerDetailsWebAction {
 
-    private final IssueKeyValidator issueKeyValidator;
-
     public EditHandlerDetailsWebAction(@ComponentImport PluginAccessor pluginAccessor, @ComponentImport IssueManager issueManager) {
         super(pluginAccessor);
-        this.issueKeyValidator = new IssueKeyValidator(issueManager);
     }
 
-    private String issueKey;
+    private String projectKey;
+    private String issueTypeName;
+    private String reporterDefaultName;
 
-    public String getIssueKey() {
-        return issueKey;
+    public String getProjectKey() {
+        return projectKey;
     }
 
-    public void setIssueKey(String issueKey) {
-        this.issueKey = issueKey;
+    public void setProjectKey(String projectKey) {
+        this.projectKey = projectKey;
+    }
+
+    public String getIssueTypeName() {
+        return issueTypeName;
+    }
+
+    public void setIssueTypeName(String issueTypeName) {
+        this.issueTypeName = issueTypeName;
+    }
+
+    public String getReporterDefaultName() {
+        return reporterDefaultName;
+    }
+
+    public void setReporterDefaultName(String reporterDefaultName) {
+        this.reporterDefaultName = reporterDefaultName;
     }
 
     // this method is called to let us populate our variables (or action state)
     // with current handler settings managed by associated service (file or mail).
     @Override
     protected void copyServiceSettings(JiraServiceContainer jiraServiceContainer) throws ObjectConfigurationException {
+
         final String params = jiraServiceContainer.getProperty(AbstractMessageHandlingService.KEY_HANDLER_PARAMS);
         final Map<String, String> parameterMap = ServiceUtils.getParameterMap(params);
-        issueKey = parameterMap.get(Handler.KEY_ISSUE_KEY);
+
+        projectKey = parameterMap.get(Handler.KEY_PROJECT_KEY);
+        issueTypeName = parameterMap.get(Handler.KEY_ISSUE_TYPE_NAME);
+        reporterDefaultName = parameterMap.get(Handler.KEY_REPORTER_DEFAULT_NAME);
+
     }
 
     @Override
     protected Map<String, String> getHandlerParams() {
-        return MapBuilder.build(Handler.KEY_ISSUE_KEY, issueKey);
+
+        MapBuilder mapBuilder = MapBuilder.newBuilder();
+        mapBuilder.add(Handler.KEY_PROJECT_KEY, projectKey);
+        mapBuilder.add(Handler.KEY_ISSUE_TYPE_NAME, issueTypeName);
+        mapBuilder.add(Handler.KEY_REPORTER_DEFAULT_NAME, reporterDefaultName);
+
+        return mapBuilder.toMap();
+
     }
 
     @Override
     protected void doValidation() {
+
         if (configuration == null) {
-            return; // short-circuit in case we lost session, goes directly to doExecute which redirects user
+            return;
         }
+
         super.doValidation();
-        issueKeyValidator.validateIssue(issueKey, new WebWorkErrorCollector());
+
     }
+
 }

@@ -3,7 +3,6 @@ package rocks.patch.plugins.jira.mailhandlerdefault;
 import com.atlassian.jira.bc.issue.IssueService;
 import com.atlassian.jira.bc.project.ProjectService;
 import com.atlassian.jira.config.ConstantsManager;
-import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.issue.IssueInputParameters;
 import com.atlassian.jira.issue.IssueManager;
 import com.atlassian.jira.issue.issuetype.IssueType;
@@ -15,24 +14,23 @@ import com.atlassian.jira.service.util.handler.MessageHandlerErrorCollector;
 import com.atlassian.jira.service.util.handler.MessageUserProcessor;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.user.util.UserManager;
-import com.atlassian.mail.MailUtils;
-import com.atlassian.plugin.Application;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
-import java.util.List;
 import java.util.Map;
 
 public class Handler implements MessageHandler {
 
     private static final Logger log = LogManager.getLogger("atlassian.plugin");
-    public static final String KEY_ISSUE_KEY = "issueKey";
+
+    public static final String KEY_PROJECT_KEY = "projectKey";
+    public static final String KEY_ISSUE_TYPE_NAME = "issueTypeName";
+    public static final String KEY_REPORTER_DEFAULT_NAME = "reporterDefaultName";
 
     @ComponentImport
     private final IssueManager issueManager;
@@ -49,8 +47,9 @@ public class Handler implements MessageHandler {
     @ComponentImport
     private final UserManager userManager;
 
-    private final IssueKeyValidator issueKeyValidator;
-    private String issueKey;
+    private String projectKey;
+    private String issueTypeName;
+    private String reporterDefaultName;
 
     // we can use dependency injection here too!
     public Handler(MessageUserProcessor messageUserProcessor,
@@ -64,7 +63,6 @@ public class Handler implements MessageHandler {
         this.issueManager = issuesManager;
         this.projectService = projectService;
         this.authenticationContext = authenticationContext;
-        this.issueKeyValidator = new IssueKeyValidator(issuesManager);
         this.constantsManager = constantsManager;
         this.issueService = issueService;
         this.userManager = userManager;
@@ -72,18 +70,28 @@ public class Handler implements MessageHandler {
 
     @Override
     public void init(Map<String, String> params, MessageHandlerErrorCollector monitor) {
-        // getting here issue key configured by the user
-        issueKey = params.get(KEY_ISSUE_KEY);
-        if (StringUtils.isBlank(issueKey)) {
-            // this message will be either logged or displayed to the user (if the handler is tested from web UI)
-            monitor.error("Issue key has not been specified ('" + KEY_ISSUE_KEY + "' parameter). This handler will not work correctly.");
+
+        // getting configuration parameters
+
+        projectKey = params.get(KEY_PROJECT_KEY);
+        if (StringUtils.isBlank(projectKey)) {
+            monitor.error("Project key has not been specified ('" + KEY_PROJECT_KEY + "' parameter). This handler will not work correctly.");
         }
-        issueKeyValidator.validateIssue(issueKey, monitor);
+
+        issueTypeName = params.get(KEY_ISSUE_TYPE_NAME);
+        if (StringUtils.isBlank(issueTypeName)) {
+            monitor.error("Issue type name has not been specified ('" + KEY_ISSUE_TYPE_NAME + "' parameter). This handler will not work correctly.");
+        }
+
+        reporterDefaultName = params.get(KEY_REPORTER_DEFAULT_NAME);
+        if (StringUtils.isBlank(reporterDefaultName)) {
+            monitor.error("Reporter default name has not been specified ('" + KEY_REPORTER_DEFAULT_NAME + "' parameter). This handler will not work correctly.");
+        }
+
     }
 
     @Override
     public boolean handleMessage(Message message, MessageHandlerContext context) throws MessagingException {
-        // return createIssueComment(message, context);
         return createNewIssue(message, context);
     }
 
@@ -92,11 +100,11 @@ public class Handler implements MessageHandler {
         // ApplicationUser user = authenticationContext.getLoggedInUser();
         ApplicationUser user = userManager.getUserByKey("admin");
         log.info("Incoming mail: using application user " + user.getName() + " / " + user.getEmailAddress());
-        Project project = projectService.getProjectByKey(user, "TEST").getProject();
+        Project project = projectService.getProjectByKey(user, projectKey).getProject();
         log.info("Incoming mail: using project " + project.getName() + " / " + project.getId());
 
         IssueType taskIssueType = project.getIssueTypes().stream().filter(
-                issueType -> issueType.getName().equalsIgnoreCase("task")).findFirst().orElse(null);
+                issueType -> issueType.getName().equalsIgnoreCase(issueTypeName)).findFirst().orElse(null);
         log.info("Incoming mail: using issue type " + taskIssueType.getName() + " / " + taskIssueType.getId());
 
         ApplicationUser reporter = getReporter(message);
@@ -135,33 +143,6 @@ public class Handler implements MessageHandler {
         log.info("Incoming mail: using reporter " + reporter.getName());
 
         return reporter;
-
-    }
-
-    private boolean createIssueComment(Message message, MessageHandlerContext context) throws MessagingException {
-
-        // let's again validate the issue key - meanwhile issue could have been deleted, closed, etc..
-        final Issue issue = issueKeyValidator.validateIssue(issueKey, context.getMonitor());
-        if (issue == null) {
-            return false; // returning false means that we were unable to handle this message. It may be either
-            // forwarded to specified address or left in the mail queue (if forwarding not enabled)
-        }
-        // this is a small util method JIRA API provides for us, let's use it.
-        final ApplicationUser sender = messageUserProcessor.getAuthorFromSender(message);
-        if (sender == null) {
-            context.getMonitor().error("Message sender(s) '" + StringUtils.join(MailUtils.getSenders(message), ",")
-                    + "' do not have corresponding users in JIRA. Message will be ignored");
-            return false;
-        }
-        final String body = MailUtils.getBody(message);
-        final StringBuilder commentBody = new StringBuilder(message.getSubject());
-        if (body != null) {
-            commentBody.append("\n").append(StringUtils.abbreviate(body, 100000)); // let trim too long bodies
-        }
-        // thanks to using passed context we don't need to worry about normal run vs. test run - our call
-        // will be dispatched accordingly
-        context.createComment(issue, sender, commentBody.toString(), false);
-        return true; // returning true means that we have handled the message successfully. It means it will be deleted next.
 
     }
 

@@ -4,12 +4,14 @@
 #set ($submitTitle = $i18n.getText('AUI.form.submit.button.tooltip', [$submitAccessKey, $modifierKey]))
 #set ($cancelAccessKey = $i18n.getText('AUI.form.cancel.link.accesskey'))
 #set ($cancelTitle = $i18n.getText('AUI.form.cancel.link.tooltip', [$cancelAccessKey, $modifierKey]))
+
 <html>
 <head>
     <title>$action.handlerName</title>
 </head>
 <body>
 <form class="aui" action="EditHandlerDetails.jspa" method="POST" name="mailHandlerForm" id="mailHandlerForm">
+
     <div class="form-body">
         <h2>$action.handlerName</h2>
         <span class="global-errors-location">
@@ -20,8 +22,22 @@
                 #end
             </span>
         <input type="hidden" name="atl_token" value="$atl_token">
-        <label for="issue-key">$i18n.getText('handler.issue.key')</label>
-        <input type="text" class="text" id="issue-key" name="issueKey" value="$!textutils.htmlEncode($issueKey)">
+
+        <label for="project-key">$i18n.getText('handler.project.key')</label>
+        <input type="text" class="text" id="project-key" name="projectKey" value="$!textutils.htmlEncode($projectKey)">
+        <br/>
+
+        <label for="issue-type-name">$i18n.getText('handler.issue.type.name')</label>
+        <input type="text" class="text" id="issue-type-name" name="issueTypeName" value="$!textutils.htmlEncode($issueTypeName)">
+        <br/>
+
+        <label for="reporterUserName">$i18n.getText('handler.reporter.default.name')</label>
+        <select  id="reporter-default-name" class="js-default-user-picker single-user-picker" name="reporterDefaultName">
+                <option selected="selected"
+                        value="$!textutils.htmlEncode($reporterDefaultName)">
+                        $!textutils.htmlEncode($reporterDefaultName)
+                </option>
+        </select>
 
         <div class="buttons-container form-footer">
             <div class="buttons">
@@ -36,6 +52,7 @@
 
         </div>
     </div>
+
 </form>
 </body>
 </html>
